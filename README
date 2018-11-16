@@ -1,0 +1,15 @@
+# example using secrets folder (compatible with docker secrets mechanism)
+mkdir secrets
+echo "mykey" > secrets/AWS_ACCESS_KEY_ID
+echo "mysecret" > secrets/AWS_SECRET_ACCESS_KEY
+echo "myregion" > secrets/AWS_DEFAULT_REGION
+
+docker run --rm -v `pwd`/secrets:/run/secrets stersin/aws-cli help
+
+# example using environment variables
+
+docker run --rm \
+	-e AWS_ACCESS_KEY_ID=mykey \
+	-e AWS_SECRET_ACCESS_KEY=mysecret \
+	-e AWS_DEFAULT_REGION=myregion \
+	stersin/aws-cli help
